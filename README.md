@@ -1,0 +1,1 @@
+# consta-analytics-flutter-sdk
