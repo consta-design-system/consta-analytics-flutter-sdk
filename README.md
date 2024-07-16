@@ -1,4 +1,4 @@
 # consta_analytics
 
-consta_analytics SDK for Flutter
+Пакет для интеграции системы продуктовой аналитики (СПА).
 
