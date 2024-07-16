@@ -1,16 +1,45 @@
-# consta_analytics_example
+# [Consta Analytics Flutter SDK](https://pub.dev/packages/consta_analytics)
 
-Demonstrates how to use the spa_sdk plugin.
+Flutter SDK для интеграции системы продуктовой аналитики [Consta Analytics](https://analytics.consta.design).
 
-## Getting Started
+Пакет используется для подключения Flutter-приложений к Consta Analytics. SDK  предоставляет возможность отправки пользовательских событий из приложения посредством интеграции c публичным API системы продуктовой аналитики.
 
-This project is a starting point for a Flutter application.
+## Как использовать
 
-A few resources to get you started if this is your first Flutter project:
+### Требования
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Перед установкой необходимо интегрировать пакет в приложение с помощью команды
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```dart
+$ flutter pub add consta_analytics
+```
+
+### Импортируйте пакет
+
+```dart
+import 'package:consta_analytics/spa_sdk.dart';
+```
+
+### Инициализация пакета
+##### Для инициализации пакета необходимо вызвать метод init() в main.dart
+
+```dart
+void main(){
+    //...
+    SpaSdk.init(counterId: {"Номер счетчика"}, uriServiceSpa: {"Url для отправки запроса "});
+    //...
+}
+```
+
+### Отправка событий
+
+Отправка событий возможна с помощью стандартных и кастомизируемых событий
+
+```dart
+
+SpaSdk.instance.sendEvent(const EventSpa.appSessionStart());
+SpaSdk.instance.sendEvent(EventSpa.custom(eventType: "eventType", customParam: {
+              "customParam1": "valueCustomParam1",
+              "customParam2": "valueCustomParam2",
+            }))
+```

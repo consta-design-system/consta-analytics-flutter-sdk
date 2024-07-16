@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:consta_analytics/model/event_spa.dart';
 import 'package:hive/hive.dart';

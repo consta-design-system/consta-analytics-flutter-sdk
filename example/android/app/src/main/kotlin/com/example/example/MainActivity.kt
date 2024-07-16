@@ -1,4 +1,4 @@
-package com.example.example
+package com.example.consta_analytics
 
 import io.flutter.embedding.android.FlutterActivity
 
