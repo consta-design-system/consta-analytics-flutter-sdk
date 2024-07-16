@@ -1,10 +1,11 @@
 import 'dart:io';
-
+import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:consta_analytics/model/event_spa.dart';
 import 'package:hive/hive.dart';
 
 import 'network_request.dart';
+
 
 class EventManager {
   static const String boxName = 'unsentEvents';
@@ -17,43 +18,44 @@ class EventManager {
   Future<void> _initHive() async {
     final appDocumentDir = Directory.systemTemp;
     Hive.init(appDocumentDir.path);
-    Hive.registerAdapter(ConstaAnalyticsEventAdapter());
+    Hive.registerAdapter(EventSpaAdapter());
     await openBox();
     startMonitoring();
   }
 
   Future<void> openBox() async {
-    await Hive.openBox<ConstaAnalyticsEvent>(boxName);
+    await Hive.openBox<EventSpa>(boxName);
   }
 
-  Future<void> saveEvent(ConstaAnalyticsEvent event) async {
-    final box = Hive.box<ConstaAnalyticsEvent>(boxName);
+  Future<void> saveEvent(EventSpa event) async {
+    final box = Hive.box<EventSpa>(boxName);
     await box.add(event);
     await sendEvents();
   }
 
-  Future<List<ConstaAnalyticsEvent>> getEvents() async {
-    final box = Hive.box<ConstaAnalyticsEvent>(boxName);
+  Future<List<EventSpa>> getEvents() async {
+    final box = Hive.box<EventSpa>(boxName);
     return box.values.toList();
   }
 
   Future<void> sendEvents() async {
-    final box = Hive.box<ConstaAnalyticsEvent>(boxName);
+
+    final box = Hive.box<EventSpa>(boxName);
     final events = box.keys.toList();
     if (events.isEmpty) return;
 
     for (var key in events) {
-      final ConstaAnalyticsEvent? event = box.get(key);
-      try {
-        if (event?.uriSand == null) {
-          await box.delete(key);
-          continue;
-        }
-        await _networkRequest.postSpaMessage(event!);
-        await box.delete(key);
-      } catch (e) {
-        return;
-      }
+      final EventSpa? event = box.get(key);
+     try {
+       if(event?.uriSand == null) {
+         await box.delete(key);
+         continue;
+       }
+       await _networkRequest.postSpaMessage(event!);
+       await box.delete(key);
+     }catch(e){
+       return;
+     }
     }
   }
 

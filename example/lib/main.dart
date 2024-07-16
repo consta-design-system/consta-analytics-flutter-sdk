@@ -14,6 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   late final TextEditingController textEditingControllerCounter;
   late final TextEditingController textEditingControllerUri;
 
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
 
     textEditingControllerCounter = TextEditingController();
     textEditingControllerUri = TextEditingController();
+
   }
 
   @override
@@ -32,12 +34,14 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
-          child: Builder(builder: (context) {
-            if (!auth) {
-              return _auth();
+          child: Builder(
+            builder: (context) {
+              if(!auth){
+                return _auth();
+              }
+              return _test();
             }
-            return _test();
-          }),
+          ),
         ),
       ),
     );
@@ -47,21 +51,22 @@ class _MyAppState extends State<MyApp> {
     return Column(
       children: [
         TextField(
-            controller: textEditingControllerCounter,
-            decoration: const InputDecoration(
-              hintText: "counterId",
-            )),
+          controller: textEditingControllerCounter,
+          decoration: const InputDecoration(
+            hintText: "counterId",
+          )
+        ),
         TextField(
-            controller: textEditingControllerUri,
-            decoration: const InputDecoration(
-              hintText: "uri",
-            )),
+          controller: textEditingControllerUri,
+          decoration: const InputDecoration(
+            hintText: "uri",
+          )
+        ),
         ElevatedButton(
           onPressed: () {
             setState(() {
               auth = true;
-              ConstaAnalytics.init(
-                  counterId: textEditingControllerCounter.text, uriServiceSpa: textEditingControllerUri.text);
+              SpaSdk.init(counterId: textEditingControllerCounter.text, uriServiceSpa: textEditingControllerUri.text);
             });
           },
           style: ElevatedButton.styleFrom(
@@ -81,7 +86,7 @@ class _MyAppState extends State<MyApp> {
       children: [
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.activateLocation();
+            SpaSdk.instance.activateLocation();
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -93,7 +98,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.error(error: "error", errorValue: "errorValue"));
+            SpaSdk.instance.sendEvent(EventSpa.error(error: "error", errorValue: "errorValue"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -105,7 +110,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(const ConstaAnalyticsEvent.appSessionStart());
+            SpaSdk.instance.sendEvent(const EventSpa.appSessionStart());
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -117,7 +122,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.search(value: "value"));
+            SpaSdk.instance.sendEvent(EventSpa.search(value: "value"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -129,8 +134,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance
-                .sendEvent(ConstaAnalyticsEvent.appException(fatal: 'fatal', engagementTimeMSec: 'engagementTimeMSec'));
+            SpaSdk.instance.sendEvent(EventSpa.appException(fatal: 'fatal', engagementTimeMSec: 'engagementTimeMSec'));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -142,7 +146,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(const ConstaAnalyticsEvent.appSessionEnd());
+            SpaSdk.instance.sendEvent(const EventSpa.appSessionEnd());
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -154,8 +158,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance
-                .sendEvent(ConstaAnalyticsEvent.appUpdate(previousAppVersion: "previousAppVersion"));
+            SpaSdk.instance.sendEvent(EventSpa.appUpdate(previousAppVersion: "previousAppVersion"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -167,14 +170,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.fileOpenedInLink(
-                linkUri: 'linkUri',
-                linkId: 'linkId',
-                linkText: 'linkText',
-                linkDomain: 'linkDomain',
-                linkClassed: 'linkClassed',
-                fileName: 'fileName',
-                fileExtension: 'fileExtension'));
+            SpaSdk.instance.sendEvent(EventSpa.fileOpenedInLink(linkUri: 'linkUri', linkId: 'linkId', linkText: 'linkText', linkDomain: 'linkDomain', linkClassed: 'linkClassed', fileName: 'fileName', fileExtension: 'fileExtension'));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -186,15 +182,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.firstOpen(
-                previousGmpAppId: "previousGmpAppId",
-                updatedWithAnalytics: "updatedWithAnalytics",
-                previousFirstOpenCount: "previousFirstOpenCount",
-                systemApp: "systemApp",
-                systemAppUpdate: "systemAppUpdate",
-                deferredAnalyticsCollection: "deferredAnalyticsCollection",
-                resetAnalyticsCause: "resetAnalyticsCause",
-                engagementTimeMSec: "engagementTimeMSec"));
+            SpaSdk.instance.sendEvent(EventSpa.firstOpen(previousGmpAppId: "previousGmpAppId", updatedWithAnalytics: "updatedWithAnalytics", previousFirstOpenCount: "previousFirstOpenCount", systemApp: "systemApp", systemAppUpdate: "systemAppUpdate", deferredAnalyticsCollection: "deferredAnalyticsCollection", resetAnalyticsCause: "resetAnalyticsCause", engagementTimeMSec: "engagementTimeMSec"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -206,7 +194,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.linkOpened(linkUri: "linkUri"));
+            SpaSdk.instance.sendEvent(EventSpa.linkOpened(linkUri: "linkUri"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -218,8 +206,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance
-                .sendEvent(ConstaAnalyticsEvent.screenView(pageLocation: "pageLocation", pageReferrer: "pageReferrer"));
+            SpaSdk.instance.sendEvent(EventSpa.screenView(pageLocation: "pageLocation", pageReferrer: "pageReferrer"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -231,7 +218,7 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.custom(eventType: "eventType", customParam: {
+            SpaSdk.instance.sendEvent(EventSpa.custom(eventType: "eventType", customParam: {
               "customParam1": "valueCustomParam1",
               "customParam2": "valueCustomParam2",
             }));
@@ -247,4 +234,7 @@ class _MyAppState extends State<MyApp> {
       ],
     );
   }
+
+
+
 }

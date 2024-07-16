@@ -6,17 +6,17 @@ part of 'event_spa.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ConstaAnalyticsEventAdapter extends TypeAdapter<ConstaAnalyticsEvent> {
+class EventSpaAdapter extends TypeAdapter<EventSpa> {
   @override
   final int typeId = 0;
 
   @override
-  ConstaAnalyticsEvent read(BinaryReader reader) {
+  EventSpa read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ConstaAnalyticsEvent(
+    return EventSpa(
       latitude: fields[0] as String?,
       longitude: fields[1] as String?,
       libraryVersion: fields[2] as String?,
@@ -43,7 +43,7 @@ class ConstaAnalyticsEventAdapter extends TypeAdapter<ConstaAnalyticsEvent> {
   }
 
   @override
-  void write(BinaryWriter writer, ConstaAnalyticsEvent obj) {
+  void write(BinaryWriter writer, EventSpa obj) {
     writer
       ..writeByte(22)
       ..writeByte(0)
@@ -98,5 +98,7 @@ class ConstaAnalyticsEventAdapter extends TypeAdapter<ConstaAnalyticsEvent> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ConstaAnalyticsEventAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      other is EventSpaAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

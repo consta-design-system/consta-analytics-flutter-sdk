@@ -5,6 +5,7 @@ import 'network_handler.dart';
 
 /// Network requester which will get the data from the remote.
 class NetworkRequest extends NetworkHandler {
+
   /// A remote handler which will handle the remote calls.
   final RemoteHandler _remoteHandler = RemoteHandler();
 
@@ -19,7 +20,7 @@ class NetworkRequest extends NetworkHandler {
   }
 
   @override
-  Future<Map<String, dynamic>> postSpaMessage(ConstaAnalyticsEvent event) {
+  Future<Map<String, dynamic>> postSpaMessage(EventSpa event) {
     try {
       return _remoteHandler.postSpaMessage(event);
     } catch (_) {

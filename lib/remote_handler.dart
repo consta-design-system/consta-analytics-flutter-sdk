@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 
+import 'package:dio/dio.dart';
 import 'model/event_spa.dart';
 import 'network_handler.dart';
 
@@ -25,9 +25,10 @@ class RemoteHandler extends NetworkHandler {
     }
   }
 
+
   @override
-  Future<Map<String, dynamic>> postSpaMessage(ConstaAnalyticsEvent event) async {
-    if (event.uriSand == null) throw Exception('Error uriSand not null.');
+  Future<Map<String, dynamic>> postSpaMessage(EventSpa event) async {
+    if(event.uriSand == null) throw Exception('Error uriSand not null.');
     try {
       print(event.toJson);
       Response<dynamic> response = await _dio.post(
