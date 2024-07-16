@@ -1,1 +1,4 @@
-# consta-analytics-flutter-sdk
+# consta_analytics
+
+consta_analytics SDK for Flutter
+
