@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:io';
 
@@ -7,14 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:uuid/uuid.dart';
+
 import 'event_manager.dart';
 import 'model/event_spa.dart';
 import 'network_request.dart';
 
-
 ///need singleton
 class ConstaAnalytics {
-  
   /// Singleton instance of the SpaSdk
 
   static ConstaAnalytics? _instance;
@@ -23,10 +21,14 @@ class ConstaAnalytics {
   /// [counterId] is the counter id which is required to send the event
   /// [uriServiceSpa] is the uri of the server where the event will be sent
 
-  static ConstaAnalytics init({required String counterId, required String uriServiceSpa,}) => _instance = ConstaAnalytics._(counterId: counterId, uriServiceSpa: uriServiceSpa);
+  static ConstaAnalytics init({
+    required String counterId,
+    required String uriServiceSpa,
+  }) =>
+      _instance = ConstaAnalytics._(counterId: counterId, uriServiceSpa: uriServiceSpa);
 
   /// Version of the sdk
-  
+
   static const String _version = "0.0.1";
 
   /// Singleton instance of the SpaSdk
@@ -46,7 +48,7 @@ class ConstaAnalytics {
   final String uriServiceSpa;
 
   /// id auth user
-  
+
   static String? _userId;
 
   /// id session
@@ -76,7 +78,7 @@ class ConstaAnalytics {
   ConstaAnalytics._({
     required this.uriServiceSpa,
     required this.counterId,
-  }){
+  }) {
     _initIpAddress();
     _initClientInfo();
   }
@@ -101,7 +103,6 @@ class ConstaAnalytics {
     _userId = userId;
   }
 
-
   /// Save and send the event to the server
   /// or Send to Delete this event in hive bd
   /// [event] is the event which need to send
@@ -109,7 +110,7 @@ class ConstaAnalytics {
 
   Future<void> sendEvent(ConstaAnalyticsEvent event) async {
     return _eventManager.saveEvent(
-      (await  _defaultDataEvent()).copyWith(event),
+      (await _defaultDataEvent()).copyWith(event),
     );
   }
 
@@ -144,7 +145,7 @@ class ConstaAnalytics {
   }
 
   /// Get the current platform
-  
+
   String _getCurrentPlatform() {
     if (kIsWeb) return "web";
 
@@ -154,16 +155,15 @@ class ConstaAnalytics {
   /// Get the location data
 
   Future<LocationData?> getLocation() async {
-
     bool serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) return Future.value();
 
     PermissionStatus permission = await location.hasPermission();
     if (permission == PermissionStatus.denied) return Future.value();
 
-    try{
+    try {
       return await location.getLocation().timeout(const Duration(milliseconds: 500));
-    }catch(a){
+    } catch (a) {
       return null;
     }
   }
@@ -175,7 +175,6 @@ class ConstaAnalytics {
   /// and grant the permission
 
   Future<dynamic> activateLocation() async {
-
     bool serviceEnabled = await location.serviceEnabled();
 
     if (!serviceEnabled) return await location.requestService();

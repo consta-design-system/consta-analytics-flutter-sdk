@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:consta_analytics/model/event_spa.dart';
 import 'package:consta_analytics/spa_sdk.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   late final TextEditingController textEditingControllerCounter;
   late final TextEditingController textEditingControllerUri;
 
@@ -26,7 +25,6 @@ class _MyAppState extends State<MyApp> {
 
     textEditingControllerCounter = TextEditingController();
     textEditingControllerUri = TextEditingController();
-
   }
 
   @override
@@ -34,14 +32,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
-          child: Builder(
-            builder: (context) {
-              if(!auth){
-                return _auth();
-              }
-              return _test();
+          child: Builder(builder: (context) {
+            if (!auth) {
+              return _auth();
             }
-          ),
+            return _test();
+          }),
         ),
       ),
     );
@@ -51,22 +47,21 @@ class _MyAppState extends State<MyApp> {
     return Column(
       children: [
         TextField(
-          controller: textEditingControllerCounter,
-          decoration: const InputDecoration(
-            hintText: "counterId",
-          )
-        ),
+            controller: textEditingControllerCounter,
+            decoration: const InputDecoration(
+              hintText: "counterId",
+            )),
         TextField(
-          controller: textEditingControllerUri,
-          decoration: const InputDecoration(
-            hintText: "uri",
-          )
-        ),
+            controller: textEditingControllerUri,
+            decoration: const InputDecoration(
+              hintText: "uri",
+            )),
         ElevatedButton(
           onPressed: () {
             setState(() {
               auth = true;
-              ConstaAnalytics.init(counterId: textEditingControllerCounter.text, uriServiceSpa: textEditingControllerUri.text);
+              ConstaAnalytics.init(
+                  counterId: textEditingControllerCounter.text, uriServiceSpa: textEditingControllerUri.text);
             });
           },
           style: ElevatedButton.styleFrom(
@@ -134,7 +129,8 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.appException(fatal: 'fatal', engagementTimeMSec: 'engagementTimeMSec'));
+            ConstaAnalytics.instance
+                .sendEvent(ConstaAnalyticsEvent.appException(fatal: 'fatal', engagementTimeMSec: 'engagementTimeMSec'));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -158,7 +154,8 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.appUpdate(previousAppVersion: "previousAppVersion"));
+            ConstaAnalytics.instance
+                .sendEvent(ConstaAnalyticsEvent.appUpdate(previousAppVersion: "previousAppVersion"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -170,7 +167,14 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.fileOpenedInLink(linkUri: 'linkUri', linkId: 'linkId', linkText: 'linkText', linkDomain: 'linkDomain', linkClassed: 'linkClassed', fileName: 'fileName', fileExtension: 'fileExtension'));
+            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.fileOpenedInLink(
+                linkUri: 'linkUri',
+                linkId: 'linkId',
+                linkText: 'linkText',
+                linkDomain: 'linkDomain',
+                linkClassed: 'linkClassed',
+                fileName: 'fileName',
+                fileExtension: 'fileExtension'));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -182,7 +186,15 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.firstOpen(previousGmpAppId: "previousGmpAppId", updatedWithAnalytics: "updatedWithAnalytics", previousFirstOpenCount: "previousFirstOpenCount", systemApp: "systemApp", systemAppUpdate: "systemAppUpdate", deferredAnalyticsCollection: "deferredAnalyticsCollection", resetAnalyticsCause: "resetAnalyticsCause", engagementTimeMSec: "engagementTimeMSec"));
+            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.firstOpen(
+                previousGmpAppId: "previousGmpAppId",
+                updatedWithAnalytics: "updatedWithAnalytics",
+                previousFirstOpenCount: "previousFirstOpenCount",
+                systemApp: "systemApp",
+                systemAppUpdate: "systemAppUpdate",
+                deferredAnalyticsCollection: "deferredAnalyticsCollection",
+                resetAnalyticsCause: "resetAnalyticsCause",
+                engagementTimeMSec: "engagementTimeMSec"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -206,7 +218,8 @@ class _MyAppState extends State<MyApp> {
         ),
         ElevatedButton(
           onPressed: () {
-            ConstaAnalytics.instance.sendEvent(ConstaAnalyticsEvent.screenView(pageLocation: "pageLocation", pageReferrer: "pageReferrer"));
+            ConstaAnalytics.instance
+                .sendEvent(ConstaAnalyticsEvent.screenView(pageLocation: "pageLocation", pageReferrer: "pageReferrer"));
           },
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(double.infinity, 40),
@@ -234,7 +247,4 @@ class _MyAppState extends State<MyApp> {
       ],
     );
   }
-
-
-
 }

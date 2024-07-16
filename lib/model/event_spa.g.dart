@@ -98,7 +98,5 @@ class ConstaAnalyticsEventAdapter extends TypeAdapter<ConstaAnalyticsEvent> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ConstaAnalyticsEventAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is ConstaAnalyticsEventAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

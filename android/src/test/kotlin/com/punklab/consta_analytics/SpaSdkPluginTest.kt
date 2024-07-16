@@ -14,14 +14,14 @@ import org.mockito.Mockito
  */
 
 internal class SpaSdkPluginTest {
-  @Test
-  fun onMethodCall_getPlatformVersion_returnsExpectedValue() {
-    val plugin = SpaSdkPlugin()
+    @Test
+    fun onMethodCall_getPlatformVersion_returnsExpectedValue() {
+        val plugin = SpaSdkPlugin()
 
-    val call = MethodCall("getPlatformVersion", null)
-    val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)
-    plugin.onMethodCall(call, mockResult)
+        val call = MethodCall("getPlatformVersion", null)
+        val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)
+        plugin.onMethodCall(call, mockResult)
 
-    Mockito.verify(mockResult).success("Android " + android.os.Build.VERSION.RELEASE)
-  }
+        Mockito.verify(mockResult).success("Android " + android.os.Build.VERSION.RELEASE)
+    }
 }

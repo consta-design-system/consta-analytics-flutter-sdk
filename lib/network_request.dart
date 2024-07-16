@@ -5,7 +5,6 @@ import 'network_handler.dart';
 
 /// Network requester which will get the data from the remote.
 class NetworkRequest extends NetworkHandler {
-
   /// A remote handler which will handle the remote calls.
   final RemoteHandler _remoteHandler = RemoteHandler();
 

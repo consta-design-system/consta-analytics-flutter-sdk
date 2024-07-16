@@ -2,7 +2,6 @@ import 'model/event_spa.dart';
 
 /// The network handler which will handle all the data related work.
 abstract class NetworkHandler {
-
   /// Get IpAddress in map format.
   Future<Map<String, dynamic>> getIpAddress();
 

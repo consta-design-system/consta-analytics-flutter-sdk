@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:hive/hive.dart';
 import 'package:consta_analytics/model/event_spa.dart';
+import 'package:hive/hive.dart';
 
 import 'network_request.dart';
-
 
 class EventManager {
   static const String boxName = 'unsentEvents';
@@ -39,23 +38,22 @@ class EventManager {
   }
 
   Future<void> sendEvents() async {
-
     final box = Hive.box<ConstaAnalyticsEvent>(boxName);
     final events = box.keys.toList();
     if (events.isEmpty) return;
 
     for (var key in events) {
       final ConstaAnalyticsEvent? event = box.get(key);
-     try {
-       if(event?.uriSand == null) {
-         await box.delete(key);
-         continue;
-       }
-       await _networkRequest.postSpaMessage(event!);
-       await box.delete(key);
-     }catch(e){
-       return;
-     }
+      try {
+        if (event?.uriSand == null) {
+          await box.delete(key);
+          continue;
+        }
+        await _networkRequest.postSpaMessage(event!);
+        await box.delete(key);
+      } catch (e) {
+        return;
+      }
     }
   }
 

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
+
 part 'event_spa.g.dart';
 
 @HiveType(typeId: 0)
 class ConstaAnalyticsEvent {
-
   /// The latitude and longitude of the user's location
   /// Need permission location
   @HiveField(0)
@@ -110,9 +110,7 @@ class ConstaAnalyticsEvent {
     this.counterId,
     this.appScreen,
     this.appVersion,
-
     required this.eventType,
-
     this.deviceId,
     this.appName,
     this.deviceName,
@@ -122,7 +120,6 @@ class ConstaAnalyticsEvent {
     this.language,
     this.resolutionWidth,
     this.resolutionHeight,
-
     this.customParam,
     this.id,
     this.uriSand,
@@ -144,40 +141,31 @@ class ConstaAnalyticsEvent {
   /// [fatal] is the error message
   /// [engagementTimeMSec] is the time in milliseconds, the user was engaged with the app
 
-   ConstaAnalyticsEvent.appException({
+  ConstaAnalyticsEvent.appException({
     required String fatal,
     required String engagementTimeMSec,
-  }) : this(
-      eventType: "app_exception",
-      customParam: {
-        'fatal': fatal,
-        'engagement_time_msec': engagementTimeMSec,
-      }
-  );
+  }) : this(eventType: "app_exception", customParam: {
+          'fatal': fatal,
+          'engagement_time_msec': engagementTimeMSec,
+        });
 
   /// Use this constructor is end user update the app
   /// [previousAppVersion] is the previous version of the app
 
   ConstaAnalyticsEvent.appUpdate({
     required String previousAppVersion,
-  }) : this(
-      eventType: "app_update",
-      customParam: {
-        'previous_app_version': previousAppVersion,
-      }
-  );
+  }) : this(eventType: "app_update", customParam: {
+          'previous_app_version': previousAppVersion,
+        });
 
   /// Use this constructor is user click and open the link
   /// [linkUri] is the link that was opened
 
   ConstaAnalyticsEvent.linkOpened({
     required String linkUri,
-  }) : this(
-      eventType: "link_opened",
-      customParam: {
-        'link_uri': linkUri,
-      }
-  );
+  }) : this(eventType: "link_opened", customParam: {
+          'link_uri': linkUri,
+        });
 
   /// Use this constructor is app error
   /// [error] is the error message
@@ -186,14 +174,10 @@ class ConstaAnalyticsEvent {
   ConstaAnalyticsEvent.error({
     required String error,
     required String errorValue,
-  }) : this(
-      eventType: "error",
-      customParam: {
-        'error': error,
-        'error_value': errorValue,
-      }
-  );
-
+  }) : this(eventType: "error", customParam: {
+          'error': error,
+          'error_value': errorValue,
+        });
 
   /// Use this constructor is user click link and open the file
   /// Open file is current regular: pdf|xlsx?|docx?|txt|rtf|csv|exe|key|pp(s|t|tx)|7z|pkg|rar|gz|zip|avi|mov|mp4|mpe?g|wmv|midi?|mp3|wav|wma
@@ -214,18 +198,17 @@ class ConstaAnalyticsEvent {
     required String fileName,
     required String fileExtension,
   }) : this(
-    eventType: "file_opened",
-    customParam: {
-      'link_uri': linkUri,
-      'link_id': linkId,
-      'link_text': linkText,
-      'link_domain': linkDomain,
-      'link_classed': linkClassed,
-      'file_name': fileName,
-      'file_extension': fileExtension,
-    },
-  );
-
+          eventType: "file_opened",
+          customParam: {
+            'link_uri': linkUri,
+            'link_id': linkId,
+            'link_text': linkText,
+            'link_domain': linkDomain,
+            'link_classed': linkClassed,
+            'file_name': fileName,
+            'file_extension': fileExtension,
+          },
+        );
 
   /// Use this constructor is user first open the app
   /// [previousGmpAppId] is the previous gmp app id
@@ -246,19 +229,16 @@ class ConstaAnalyticsEvent {
     required String deferredAnalyticsCollection,
     required String resetAnalyticsCause,
     required String engagementTimeMSec,
-  }) : this(
-    eventType: "first_open",
-    customParam: {
-      'previous_gmp_app_id': previousGmpAppId,
-      'updated_with_analytics': updatedWithAnalytics,
-      'previous_first_open_count': previousFirstOpenCount,
-      'system_app': systemApp,
-      'system_app_update': systemAppUpdate,
-      'deferred_analytics_collection': deferredAnalyticsCollection,
-      'reset_analytics_cause': resetAnalyticsCause,
-      'engagement_time_msec': engagementTimeMSec,
-    }
-  );
+  }) : this(eventType: "first_open", customParam: {
+          'previous_gmp_app_id': previousGmpAppId,
+          'updated_with_analytics': updatedWithAnalytics,
+          'previous_first_open_count': previousFirstOpenCount,
+          'system_app': systemApp,
+          'system_app_update': systemAppUpdate,
+          'deferred_analytics_collection': deferredAnalyticsCollection,
+          'reset_analytics_cause': resetAnalyticsCause,
+          'engagement_time_msec': engagementTimeMSec,
+        });
 
   /// Use this constructor is user open screen
   /// [pageLocation] is new screen uri
@@ -268,47 +248,44 @@ class ConstaAnalyticsEvent {
     required String pageLocation,
     required String pageReferrer,
   }) : this(
-    eventType: "screen_view",
-    customParam: {
-      'page_location': pageLocation,
-      'page_referrer': pageReferrer,
-    },
-  );
+          eventType: "screen_view",
+          customParam: {
+            'page_location': pageLocation,
+            'page_referrer': pageReferrer,
+          },
+        );
 
   /// Use this constructor is user scroll
   /// [engagementTimeMSec] is the time in milliseconds, the user was engaged with the app
   /// user first time reach the bottom of the screen
 
   ConstaAnalyticsEvent.scroll(
-      String engagementTimeMSec,
-      ) : this(
-    eventType: "scroll",
-    customParam: {
-      'engagement_time_msec': engagementTimeMSec,
-    }
-  );
+    String engagementTimeMSec,
+  ) : this(eventType: "scroll", customParam: {
+          'engagement_time_msec': engagementTimeMSec,
+        });
 
   /// Use this constructor is open the app
 
-  const ConstaAnalyticsEvent.appSessionStart() : this(
-    eventType: "session_start",
-  );
+  const ConstaAnalyticsEvent.appSessionStart()
+      : this(
+          eventType: "session_start",
+        );
 
   /// Use this constructor is destroy the app
 
-  const ConstaAnalyticsEvent.appSessionEnd() : this(
-    eventType: "session_end",
-  );
+  const ConstaAnalyticsEvent.appSessionEnd()
+      : this(
+          eventType: "session_end",
+        );
 
   /// Use this constructor is user search
   /// [value] is the search value
 
-  ConstaAnalyticsEvent.search({required String value}) : this(
-      eventType: "search",
-      customParam: {
-        'search_request': value,
-      }
-  );
+  ConstaAnalyticsEvent.search({required String value})
+      : this(eventType: "search", customParam: {
+          'search_request': value,
+        });
 
   /// Use this constructor need create custom event
   /// [eventType] is the event type
@@ -318,126 +295,125 @@ class ConstaAnalyticsEvent {
     required String eventType,
     required Map<String, dynamic> customParam,
   }) : this(
-    eventType: eventType,
-    customParam: customParam,
-  );
-
+          eventType: eventType,
+          customParam: customParam,
+        );
 
   Map<String, dynamic> toMap() {
     final date = DateTime.now();
     return {
       'apiVersion': "1.0",
-      'counterId' : counterId ?? '',
+      'counterId': counterId ?? '',
       'timestamp': date.toUtc().millisecondsSinceEpoch ~/ 1000,
       'channelType': "CustomScript",
       'user_id': userId.toString(),
-      'channelName' : "RegEvents API",
+      'channelName': "RegEvents API",
       'eventCaption': eventType ?? '',
       'customparams': [
-        if(latitude != null)
+        if (latitude != null)
           {
             'name': 'latitude',
             'type': 'STRING',
             'value': latitude,
           },
-        if(longitude != null)
+        if (longitude != null)
           {
             'name': 'latitude',
             'type': 'STRING',
             'value': longitude,
           },
-        if(osName != null)
+        if (osName != null)
           {
             'name': 'osName',
             'type': 'STRING',
             'value': osName,
           },
-        if(deviceName != null)
+        if (deviceName != null)
           {
             'name': 'deviceName',
             'type': 'STRING',
             'value': deviceName,
           },
-        if(libraryVersion != null)
+        if (libraryVersion != null)
           {
             'name': 'libraryVersion',
             'type': 'STRING',
             'value': libraryVersion,
           },
-        if(ipAddress != null)
+        if (ipAddress != null)
           {
             'name': 'ipAddress',
             'type': 'STRING',
             'value': ipAddress,
           },
-        if(deviceId != null)
+        if (deviceId != null)
           {
             'name': 'deviceId',
             'type': 'STRING',
             'value': deviceId,
           },
-        if(userId != null)
+        if (userId != null)
           {
             'name': 'userId',
             'type': 'STRING',
             'value': userId,
           },
-        if(sessionId != null)
+        if (sessionId != null)
           {
             'name': 'sessionId',
             'type': 'STRING',
             'value': sessionId,
           },
-        if(appScreen != null)
+        if (appScreen != null)
           {
             'name': 'appScreen',
             'type': 'STRING',
             'value': appScreen,
           },
-        if(osVersion != null)
+        if (osVersion != null)
           {
             'name': 'osVersion',
             'type': 'STRING',
             'value': osVersion,
           },
-        if(appVersion != null)
+        if (appVersion != null)
           {
             'name': 'appVersion',
             'type': 'STRING',
             'value': appVersion,
           },
-        if(appName != null)
+        if (appName != null)
           {
             'name': 'appName',
             'type': 'STRING',
             'value': appName,
           },
-        if(platform != null)
+        if (platform != null)
           {
             'name': 'platform',
             'type': 'STRING',
             'value': platform,
           },
-        if(language != null)
+        if (language != null)
           {
             'name': 'language',
             'type': 'STRING',
             'value': language,
           },
-        if(resolutionWidth != null)
+        if (resolutionWidth != null)
           {
             'name': 'resolutionWidth',
             'type': 'STRING',
             'value': resolutionWidth,
           },
-        if(resolutionHeight != null)
+        if (resolutionHeight != null)
           {
             'name': 'resolutionHeight',
             'type': 'STRING',
             'value': resolutionHeight,
           },
         ...?customParam?.keys.map((e) {
-          if(customParam?[e] == null) return null;
+          if (customParam?[e] == null) return null;
           return {
             'name': e,
             'type': 'STRING',
@@ -463,7 +439,6 @@ class ConstaAnalyticsEvent {
       customParam: map['customparams'],
     );
   }
-
 
   /// CopyWith the current EventSpa with the new values
   /// [event] is the new values
