@@ -1,10 +1,10 @@
 name: consta_analytics
 description: "Consta analytics SDK for Flutter"
 version: 1.0.0
-homepage: https://github.com/consta-design-system/consta-analytics-flutter-sdk
+homepage: https://github.com/consta-design-system/consta-analytics-flutter-sdk.git
 
 environment:
-  sdk: '>=3.3.2 <4.0.0'
+  sdk: '>=3.3.0 <4.0.0'
   flutter: '>=3.3.0'
 
 dependencies:
