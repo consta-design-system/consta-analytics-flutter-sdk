@@ -10,6 +10,11 @@ import 'package:uuid/uuid.dart';
 import 'event_manager.dart';
 import 'model/event_spa.dart';
 import 'network_request.dart';
+export 'event_manager.dart';
+export 'remote_handler.dart';
+export 'network_request.dart';
+export 'network_handler.dart';
+export 'model/event_spa.dart';
 
 
 ///need singleton

@@ -27,6 +27,7 @@ class EventManager {
   }
 
   Future<void> saveEvent(EventSpa event) async {
+    if(Hive.box<EventSpa>(boxName).isOpen==false)await Hive.openBox<EventSpa>(boxName);
     final box = Hive.box<EventSpa>(boxName);
     await box.add(event);
     await sendEvents();

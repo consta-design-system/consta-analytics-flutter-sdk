@@ -1,6 +1,6 @@
 name: consta_analytics
 description: "SPA SDK for Flutter"
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/consta-design-system/consta-analytics-flutter-sdk.git
 
 environment:

@@ -1,4 +1,3 @@
-import 'package:consta_analytics/model/event_spa.dart';
 import 'package:consta_analytics/spa_sdk.dart';
 import 'package:flutter/material.dart';
 
